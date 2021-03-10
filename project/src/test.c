@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include "utils.h"
 
-
 int main() {
     Tasks *tasks = create_container_for_tasks();
 

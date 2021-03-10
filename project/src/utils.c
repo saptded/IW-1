@@ -10,38 +10,38 @@ int parse_date(const char *date_str, size_t *date_arr) {
 
     int i = 0;
     char *end = NULL;
-    char *buf = (char*) calloc(4, sizeof(char));
+    char *buf = (char *) calloc(BUFFER_FOR_DATE_SIZE, sizeof(char));
 
-    while(*(date_str + i) != ':' && i != 2) {
+    while (*(date_str + i) != ':' && i != SYMBOLS_FOR_DAYS) {
         buf[i] = date_str[i];
         i++;
     }
-    date_arr[0] = (size_t) strtol(buf, &end, 10);
-    if (*end != '\0' || date_arr[0] <= 0 || date_arr[0] > 31) {
+    date_arr[0] = (size_t) strtol(buf, &end, BASE);
+    if (*end != '\0' || date_arr[0] <= 0 || date_arr[0] > MAX_DAYS_IN_MONTH) {
         return -1;
     }
 
     date_str += (i + 1);
     i = 0;
 
-    while(*(date_str + i) != ':' && i != 2) {
+    while (*(date_str + i) != ':' && i != SYMBOLS_FOR_MONTHS) {
         buf[i] = date_str[i];
         i++;
     }
-    date_arr[1] = (size_t) strtol(buf, &end, 10);
-    if (*end != '\0' || date_arr[1] <= 0 || date_arr[1] > 12) {
+    date_arr[1] = (size_t) strtol(buf, &end, BASE);
+    if (*end != '\0' || date_arr[1] <= 0 || date_arr[1] > MAX_MONTHS_IN_YEAR) {
         return -1;
     }
 
     date_str += (i + 1);
     i = 0;
 
-    while(*(date_str + i) != '\0' && i != 4) {
+    while (*(date_str + i) != '\0' && i != SYMBOLS_OF_YEARS) {
         buf[i] = date_str[i];
         i++;
     }
-    date_arr[2] = (size_t) strtol(buf, &end, 10);
-    if (*end != '\0' || date_arr[2] <= 0 || date_arr[2] > 2021) {
+    date_arr[2] = (size_t) strtol(buf, &end, BASE);
+    if (*end != '\0' || date_arr[2] <= 0 || date_arr[2] > CURRENT_YEAR) {
         return -1;
     }
 
@@ -53,7 +53,7 @@ int parse_date(const char *date_str, size_t *date_arr) {
 int will_continue_creating_tasks() {
     printf("Do you want to create a task(y or n): ");
 
-    char ans[3];
+    char ans[BUFFER_FOR_ANSWER];
     int res = scanf("%3s", ans);
     if (res != 1) {
         return -1;
@@ -97,14 +97,14 @@ int read_priority(Task *task) {
     printf("number: %zu\npriority: ", task->number);
 
     char *end = NULL;
-    char *buf = (char *) calloc(10, sizeof(char));
+    char *buf = (char *) calloc(COMMON_BUFFER, sizeof(char));
     if (buf == NULL) {
         return -1;
     }
     if (scanf("%10s", buf) != 1) {
         return -1;
     }
-    task->priority = (size_t) strtol(buf, &end, 10);
+    task->priority = (size_t) strtol(buf, &end, BASE);
     if (*end != '\0') {
         return -1;
     }
@@ -118,18 +118,18 @@ int read_date(Task *task) {
     }
     printf("date(XX:XX:XXXX): ");
 
-    char *date = (char *) calloc(10, sizeof(char));
-    if (date == NULL) {
+    char *date_buf = (char *) calloc(COMMON_BUFFER, sizeof(char));
+    if (date_buf == NULL) {
         return -1;
     }
-    if (scanf("%10s", date) != 1) {
+    if (scanf("%10s", date_buf) != 1) {
         return -1;
     }
-    if (parse_date(date, task->date) == -1) {
+    if (parse_date(date_buf, task->date) == -1) {
         return -1;
     }
 
-    free(date);
+    free(date_buf);
     return 0;
 }
 
@@ -139,7 +139,7 @@ int read_description(Task *task) {
     }
     printf("description: ");
 
-    task->description = (char *) calloc(100, sizeof(char));
+    task->description = (char *) calloc(SIZE_OF_DESCRIPTION, sizeof(char));
     if (task->description == NULL) {
         return -1;
     }
@@ -156,7 +156,7 @@ Tasks *create_container_for_tasks() {
         return NULL;
     }
 
-    tasks->buffer = (Task *) calloc(1, sizeof(Task));
+    tasks->buffer = (Task *) calloc(START_SIZE_OF_TASKS_BUFFER, sizeof(Task));
     if (tasks->buffer == NULL) {
         free(tasks);
         return NULL;
