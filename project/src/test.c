@@ -5,12 +5,20 @@
 #include <stdio.h>
 #include "utils.h"
 
-int main() {
-    Task task;
 
-    while(task.number != -1) {
-        scanf("%zu %zu %s %s", &task.number, &task.priority, task.date, task.description);
-        printf("%zu %zu %s %s", task.number, task.priority, task.date, task.description);
+int main() {
+    Tasks *tasks = create_container_for_tasks();
+
+    int i = 1;
+    while(i) {
+        insert_task(tasks);
+//        i = will_continue_creating_tasks();
+        if (tasks->cells_amount == tasks->tasks_amount) {
+            if (grow_tasks(tasks)) {
+                return -1;
+            }
+        }
+
     }
 }
 

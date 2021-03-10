@@ -1,38 +1,61 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <memory.h>
 #include "utils.h"
+
+int will_continue_creating_tasks() {
+    printf("Do you want to create a task(y or n): ");
+
+    char ans[3];
+    int res = scanf("%3s", ans);
+    if (res != 1) {
+        return -1;
+    }
+
+    if (*ans == 'y') {
+        return 1;
+    }
+
+    return 0;
+}
 
 int insert_task(Tasks *tasks) {
     if (tasks == NULL) {
         return -1;
     }
 
-    size_t len = BUFFER_STR;
-    int res = 0;
-
     Task task;
     task.number = tasks->tasks_amount + 1;
-    printf("priority: ");
-    res = scanf("%zu", &task.priority);
-    if (res != 1) {
-        return 1;
+    task.date = (char *) calloc(10, sizeof(char));
+    if (task.date == NULL) {
+        return -1;
+    }
+    task.description = (char *) calloc(100, sizeof(char));
+    if (task.description == NULL) {
+        return -1;
+    }
+
+    printf("number: %zu\npriority: ", task.number);
+    if (scanf("%zu", &task.priority) != 1) {
+        return -1;
     }
     printf("date: ");
-    res = scanf("%s", task.date);
+    if (scanf("%9s", task.date) != 1) {
+        return -1;
+    }
     printf("description: ");
-    res = scanf("%s", task.description);
-
-
-//    int res = scanf("%zu %zu %s %s", &task.number, &task.priority, task.date, task.description);
-//
-//    if (res == 0) {
-//        return 1;
-//    } else if (res != 4) {
-//        return -1;
-//    }
+    if (scanf("%99s", task.description) != 1) {
+        return -1;
+    }
 
     *(tasks->buffer + tasks->tasks_amount) = task;
     tasks->tasks_amount++;
+
+    printf("----\n");
+    for (int j = 0; j < tasks->tasks_amount; ++j) {
+        printf("numb: %zu descr: %s\n", tasks->buffer[j].number, tasks->buffer[j].description);
+    }
+    printf("----\n");
 
     return 0;
 }
@@ -43,7 +66,7 @@ Tasks *create_container_for_tasks() {
         return NULL;
     }
 
-    tasks->buffer = (Task *) calloc(4, sizeof(Task));
+    tasks->buffer = (Task *) calloc(1, sizeof(Task));
     if (tasks->buffer == NULL) {
         free(tasks);
         return NULL;
@@ -61,15 +84,22 @@ int grow_tasks(Tasks *tasks) {
     }
 
     tasks->cells_amount *= 2;
-    tasks->buffer = (Task *) realloc(tasks->buffer, tasks->cells_amount);
-    if (tasks->buffer == NULL) {
+    Task *tmp_buffer = (Task *) calloc(tasks->cells_amount, sizeof(Task));
+    if (tmp_buffer == NULL) {
         return -1;
     }
+
+    tmp_buffer = memcpy(tmp_buffer, tasks->buffer, tasks->tasks_amount * sizeof(Task));
+    if(tmp_buffer == NULL) {
+        return -1;
+    }
+
+    tasks->buffer = tmp_buffer;
 
     return 0;
 }
 
-int add_task(Tasks *tasks) {
+int push_back_task(Tasks *tasks) {
     if (tasks == NULL) {
         return -1;
     }
@@ -80,11 +110,8 @@ int add_task(Tasks *tasks) {
         }
     }
 
-    int res = insert_task(tasks);
-    if (res == -1) {
+    if(insert_task(tasks)) {
         return -1;
-    } else if (res == 1) {
-        return 1;
     }
 
     return 0;
