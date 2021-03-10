@@ -1,13 +1,10 @@
 #ifndef IW_1_PROJECT_INCLUDE_UTILS_H_
 #define IW_1_PROJECT_INCLUDE_UTILS_H_
 
-#define DATE_SIZE 10
-#define DESCRIPTION_SIZE 100
-
 typedef struct Task {
     size_t number;
     size_t priority;
-    char *date;
+    size_t date[3]; // date, month, year(XXXX)
     char *description;
 } Task;
 
@@ -18,6 +15,11 @@ typedef struct ArrayOfTasks {
 } Tasks;
 
 int will_continue_creating_tasks();
+int parse_date(const char *date_str, size_t *date_arr);
+
+int read_priority(Task *task);
+int read_date(Task *task);
+int read_description(Task *task);
 
 int insert_task(Tasks* task);
 int grow_tasks(Tasks *tasks);
