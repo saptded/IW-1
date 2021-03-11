@@ -4,15 +4,81 @@
 
 #include <stdio.h>
 #include "utils.h"
+#include <stdlib.h>
 
-int main() {
-    Tasks *tasks = create_container_for_tasks();
+#define SIZE 20
 
-    insert_task(tasks);
+void qsortRecursive(int *mas, int size) {
+    //Указатели в начало и в конец массива
+    int i = 0;
+    int j = size - 1;
 
-    Task task;
+    //Центральный элемент массива
+    int mid = mas[size / 2];
 
-    int res = parse_date("10:12:2001", task.date);
+    //Делим массив
+    do {
+        //Пробегаем элементы, ищем те, которые нужно перекинуть в другую часть
+        //В левой части массива пропускаем(оставляем на месте) элементы, которые меньше центрального
+        while(mas[i] < mid) {
+            i++;
+        }
+        //В правой части пропускаем элементы, которые больше центрального
+        while(mas[j] > mid) {
+            j--;
+        }
+
+        //Меняем элементы местами
+        if (i <= j) {
+            int tmp = mas[i];
+            mas[i] = mas[j];
+            mas[j] = tmp;
+
+            i++;
+            j--;
+        }
+    } while (i <= j);
+
+
+    //Рекурсивные вызовы, если осталось, что сортировать
+    if(j > 0) {
+        //"Левый кусок"
+        qsortRecursive(mas, j + 1);
+    }
+    if (i < size) {
+        //"Првый кусок"
+        qsortRecursive(&mas[i], size - i);
+    }
+}
+
+
+int main()
+{
+    int a[SIZE];
+    // Заполнение массива случайными числами
+    for (int i = 0; i<SIZE; i++)
+        a[i] = rand() % 201 - 100;
+    // Вывод элементов массива до сортировки
+    for (int i = 0; i<SIZE; i++)
+        printf("%4d ", a[i]);
+    printf("\n");
+    qsortRecursive(a, SIZE); // вызов функции сортировки
+    // Вывод элементов массива после сортировки
+    for (int i = 0; i<SIZE; i++)
+        printf("%4d ", a[i]);
+    printf("\n");
+    getchar();
+    return 0;
+}
+
+//int main() {
+//    Tasks *tasks = create_container_for_tasks();
+//
+//    insert_task(tasks);
+//
+//    Task task;
+//
+//    int res = parse_date("10:12:2001", task.date);
 
 //    int i = 1;
 //    while(i) {
@@ -25,7 +91,7 @@ int main() {
 //        }
 //
 //    }
-}
+//}
 
 
 //printf("----\n");

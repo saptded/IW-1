@@ -39,4 +39,6 @@ int grow_tasks(Tasks *tasks);
 int push_back_task(Tasks *tasks);
 Tasks *create_container_for_tasks();
 
+int qsortRecursive(Task *task, size_t size);
+
 #endif //IW_1_PROJECT_INCLUDE_UTILS_H_

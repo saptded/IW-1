@@ -3,6 +3,57 @@
 #include <memory.h>
 #include "utils.h"
 
+int qsortRecursive(Task *task, const size_t size) {
+
+    //Указатели в начало и в конец массива
+    size_t i = 0;
+    size_t j = size - 1;
+
+    //Центральный элемент массива
+    size_t mid = task[size / 2].priority;
+
+    //Делим массив
+    do {
+        //Пробегаем элементы, ищем те, которые нужно перекинуть в другую часть
+        //В левой части массива пропускаем(оставляем на месте) элементы, которые меньше центрального
+        while(task[i].priority < mid) {
+            i++;
+        }
+        //В правой части пропускаем элементы, которые больше центрального
+        while(task[j].priority > mid) {
+            j--;
+        }
+
+        if (j == 0 && i == 0) {
+            return 0;
+        }
+
+        //Меняем элементы местами
+        if (i <= j) {
+            Task tmp = task[i];
+            task[i] = task[j];
+            task[j] = tmp;
+
+            i++;
+            j--;
+        }
+    } while (i <= j);
+
+
+    //Рекурсивные вызовы, если осталось, что сортировать
+    if(j > 0) {
+        //"Левый кусок"
+        qsortRecursive(task, j + 1);
+    }
+    if (i < size) {
+        //"Првый кусок"
+        qsortRecursive(&task[i], size - i);
+    }
+
+
+    return 0;
+}
+
 int parse_date(const char *date_str, size_t *date_arr) {
     if (date_arr == NULL) {
         return -1;
