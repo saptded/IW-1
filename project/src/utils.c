@@ -3,24 +3,76 @@
 #include <memory.h>
 #include "utils.h"
 
-int qsortRecursive(Task *task, const size_t size) {
+int print_buffer(const Tasks *tasks) {
+    if (tasks == NULL || tasks->tasks_amount == 0) {
+        return -1;
+    }
 
-    //Указатели в начало и в конец массива
+    for (size_t k = 0; k < tasks->tasks_amount; k++) {
+        printf("priority: %zu number: %zu\n", tasks->buffer[k].priority, tasks->buffer[k].number);
+        for (size_t i = 0; i < 3; ++i) {
+            printf("%zu ", tasks->buffer[k].date[i]);
+        }
+        printf("\n");
+        printf("%s\n----\n", tasks->buffer[k].description);
+    }
+
+    return 0;
+}
+
+int date_comparator(const size_t *lhs, const size_t *rhs) {
+    if (lhs == NULL || rhs == NULL) {
+        return -1;
+    }
+
+    for (size_t i = 2; i >= 0; --i) {
+        if (lhs[i] > rhs[i]) {
+            return LHS_IS_LARGER;
+        } else if (lhs[i] < rhs[i]) {
+            return RHS_IS_LARGER;
+        }
+        if (!i) {
+            break;
+        }
+    }
+
+    return EQUAL;
+}
+
+int tasks_comparator(const Task *lhs, const Task *rhs) {
+    if (lhs == NULL || rhs == NULL) {
+        return -1;
+    }
+
+    if (lhs->priority > rhs->priority) {
+        return LHS_IS_LARGER;
+    } else if (lhs->priority < rhs->priority) {
+        return RHS_IS_LARGER;
+    }
+    if (date_comparator(lhs->date, rhs->date) == LHS_IS_LARGER) {
+        return LHS_IS_LARGER;
+    } else if (date_comparator(lhs->date, rhs->date) == RHS_IS_LARGER) {
+        return RHS_IS_LARGER;
+    }
+
+    return EQUAL;
+}
+
+int sort(Task *task, const size_t size) {
+    if (task == NULL || task->number == 0) {
+        return -1;
+    }
+
     size_t i = 0;
     size_t j = size - 1;
+    Task mid = task[size / 2];
 
-    //Центральный элемент массива
-    size_t mid = task[size / 2].priority;
-
-    //Делим массив
-    do {
-        //Пробегаем элементы, ищем те, которые нужно перекинуть в другую часть
-        //В левой части массива пропускаем(оставляем на месте) элементы, которые меньше центрального
-        while(task[i].priority < mid) {
+    while (i <= j) {
+        while (tasks_comparator(&task[i], &mid) == RHS_IS_LARGER) {
             i++;
         }
-        //В правой части пропускаем элементы, которые больше центрального
-        while(task[j].priority > mid) {
+
+        while (tasks_comparator(&task[j], &mid) == LHS_IS_LARGER) {
             j--;
         }
 
@@ -28,7 +80,6 @@ int qsortRecursive(Task *task, const size_t size) {
             return 0;
         }
 
-        //Меняем элементы местами
         if (i <= j) {
             Task tmp = task[i];
             task[i] = task[j];
@@ -37,19 +88,14 @@ int qsortRecursive(Task *task, const size_t size) {
             i++;
             j--;
         }
-    } while (i <= j);
+    };
 
-
-    //Рекурсивные вызовы, если осталось, что сортировать
-    if(j > 0) {
-        //"Левый кусок"
-        qsortRecursive(task, j + 1);
+    if (j > 0) {
+        sort(task, j + 1);
     }
     if (i < size) {
-        //"Првый кусок"
-        qsortRecursive(&task[i], size - i);
+        sort(&task[i], size - i);
     }
-
 
     return 0;
 }
@@ -98,7 +144,6 @@ int parse_date(const char *date_str, size_t *date_arr) {
 
     free(buf);
     return 0;
-
 }
 
 int will_continue_creating_tasks() {
@@ -201,7 +246,7 @@ int read_description(Task *task) {
     return 0;
 }
 
-Tasks *create_container_for_tasks() {
+Tasks *create_array_of_tasks() {
     Tasks *tasks = (Tasks *) calloc(1, sizeof(Tasks));
     if (tasks == NULL) {
         return NULL;

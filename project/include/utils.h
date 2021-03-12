@@ -13,6 +13,9 @@
 #define CURRENT_YEAR 2021
 #define SIZE_OF_DESCRIPTION 100
 #define START_SIZE_OF_TASKS_BUFFER 4
+#define RHS_IS_LARGER 1
+#define LHS_IS_LARGER 2
+#define EQUAL 3
 
 typedef struct Task {
     size_t number;
@@ -27,18 +30,23 @@ typedef struct ArrayOfTasks {
     size_t cells_amount;
 } Tasks;
 
+Tasks *create_array_of_tasks();
+int print_buffer(const Tasks *tasks);
+
 int will_continue_creating_tasks();
+
+int date_comparator(const size_t *lhs, const size_t *rhs);
 int parse_date(const char *date_str, size_t *date_arr);
+int tasks_comparator(const Task *lhs, const Task *rhs);
 
 int read_priority(Task *task);
 int read_date(Task *task);
 int read_description(Task *task);
 
+int push_back_task(Tasks *tasks);
 int insert_task(Tasks *task);
 int grow_tasks(Tasks *tasks);
-int push_back_task(Tasks *tasks);
-Tasks *create_container_for_tasks();
 
-int qsortRecursive(Task *task, size_t size);
+int sort(Task *task, size_t size);
 
 #endif //IW_1_PROJECT_INCLUDE_UTILS_H_

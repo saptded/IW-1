@@ -1,0 +1,5 @@
+/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/CMakeFiles/rebuild_cache.dir
+/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/CMakeFiles/utils.dir
+/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/CMakeFiles/IW_1.dir
+/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/CMakeFiles/test.dir
+/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/CMakeFiles/edit_cache.dir

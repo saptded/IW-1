@@ -1,0 +1,1 @@
+/usr/bin/cc --coverage -g   CMakeFiles/IW_1.dir/project/src/main.c.o  -o IW_1  libutils.a 

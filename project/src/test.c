@@ -20,11 +20,11 @@ void qsortRecursive(int *mas, int size) {
     do {
         //Пробегаем элементы, ищем те, которые нужно перекинуть в другую часть
         //В левой части массива пропускаем(оставляем на месте) элементы, которые меньше центрального
-        while(mas[i] < mid) {
+        while (mas[i] < mid) {
             i++;
         }
         //В правой части пропускаем элементы, которые больше центрального
-        while(mas[j] > mid) {
+        while (mas[j] > mid) {
             j--;
         }
 
@@ -41,7 +41,7 @@ void qsortRecursive(int *mas, int size) {
 
 
     //Рекурсивные вызовы, если осталось, что сортировать
-    if(j > 0) {
+    if (j > 0) {
         //"Левый кусок"
         qsortRecursive(mas, j + 1);
     }
@@ -51,24 +51,28 @@ void qsortRecursive(int *mas, int size) {
     }
 }
 
-
-int main()
-{
-    int a[SIZE];
+int main() {
+    size_t a[3] = {1, 2, 4};
+    size_t b[3] = {1, 2, 4};
     // Заполнение массива случайными числами
-    for (int i = 0; i<SIZE; i++)
-        a[i] = rand() % 201 - 100;
-    // Вывод элементов массива до сортировки
-    for (int i = 0; i<SIZE; i++)
-        printf("%4d ", a[i]);
-    printf("\n");
-    qsortRecursive(a, SIZE); // вызов функции сортировки
-    // Вывод элементов массива после сортировки
-    for (int i = 0; i<SIZE; i++)
-        printf("%4d ", a[i]);
-    printf("\n");
-    getchar();
-    return 0;
+//    for (size_t i = 0; i < 3; i++)
+//        a[i] = rand() % 201 - 100;
+//    for (size_t j = 0; j < 3; j++)
+//        b[j] = rand() % 201 - 100;
+
+    size_t res = date_comparator(a, b);
+    printf("%zu", res);
+//    // Вывод элементов массива до сортировки
+//    for (int i = 0; i<SIZE; i++)
+//        printf("%4d ", a[i]);
+//    printf("\n");
+//    qsortRecursive(a, SIZE); // вызов функции сортировки
+//    // Вывод элементов массива после сортировки
+//    for (int i = 0; i<SIZE; i++)
+//        printf("%4d ", a[i]);
+//    printf("\n");
+//    getchar();
+//    return 0;
 }
 
 //int main() {
