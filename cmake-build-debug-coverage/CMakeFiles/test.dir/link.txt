@@ -1,1 +1,0 @@
-/usr/bin/cc --coverage -g   CMakeFiles/test.dir/project/src/test.c.o  -o test  libutils.a 

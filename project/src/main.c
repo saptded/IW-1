@@ -1,9 +1,9 @@
-#include <stdio.h>
-
-#include "utils.h"
 #include "start_program.h"
 
 int main() {
-    start_program();
+    if (start_program() == -1) {
+        return -1;
+    }
+
     return 0;
 }

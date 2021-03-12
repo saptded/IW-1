@@ -1,6 +1,10 @@
-#ifndef IW_1_PROJECT_INCLUDE_START_PROGRAM_H_
-#define IW_1_PROJECT_INCLUDE_START_PROGRAM_H_
+#ifndef PROJECT_INCLUDE_START_PROGRAM_H_
+#define PROJECT_INCLUDE_START_PROGRAM_H_
+
+#include <stdio.h>
+
+#include "utils.h"
 
 int start_program();
 
-#endif //IW_1_PROJECT_INCLUDE_START_PROGRAM_H_
+#endif  // PROJECT_INCLUDE_START_PROGRAM_H_

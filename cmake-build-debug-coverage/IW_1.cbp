@@ -119,8 +119,8 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="test">
-				<Option output="/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/test" prefix_auto="0" extension_auto="0"/>
+			<Target title="gtests">
+				<Option output="/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/gtests" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -136,14 +136,14 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 test"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 gtests"/>
 					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j8 -f &quot;/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="test/fast">
-				<Option output="/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/test" prefix_auto="0" extension_auto="0"/>
+			<Target title="gtests/fast">
+				<Option output="/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/gtests" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -159,7 +159,7 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 test/fast"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 gtests/fast"/>
 					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j8 -f &quot;/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/saptded/Techopark/C_C++/IW-1/cmake-build-debug-coverage/Makefile&quot;  VERBOSE=1 clean"/>
@@ -176,14 +176,14 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/saptded/Techopark/C_C++/IW-1/gtests/gtests.cpp">
+			<Option target="gtests"/>
+		</Unit>
 		<Unit filename="/home/saptded/Techopark/C_C++/IW-1/project/src/main.c">
 			<Option target="IW_1"/>
 		</Unit>
 		<Unit filename="/home/saptded/Techopark/C_C++/IW-1/project/src/start_program.c">
 			<Option target="utils"/>
-		</Unit>
-		<Unit filename="/home/saptded/Techopark/C_C++/IW-1/project/src/test.c">
-			<Option target="test"/>
 		</Unit>
 		<Unit filename="/home/saptded/Techopark/C_C++/IW-1/project/src/utils.c">
 			<Option target="utils"/>

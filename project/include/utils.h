@@ -1,5 +1,11 @@
-#ifndef IW_1_PROJECT_INCLUDE_UTILS_H_
-#define IW_1_PROJECT_INCLUDE_UTILS_H_
+#ifndef PROJECT_INCLUDE_UTILS_H_
+#define PROJECT_INCLUDE_UTILS_H_
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <memory.h>
+
+#include "utils.h"
 
 #define BUFFER_FOR_DATE_SIZE 4
 #define BUFFER_FOR_ANSWER 3
@@ -20,7 +26,7 @@
 typedef struct Task {
     size_t number;
     size_t priority;
-    size_t date[3]; // date, month, year(XXXX)
+    size_t date[3];  // date, month, year(XXXX)
     char *description;
 } Task;
 
@@ -49,4 +55,4 @@ int grow_tasks(Tasks *tasks);
 
 int sort(Task *task, size_t size);
 
-#endif //IW_1_PROJECT_INCLUDE_UTILS_H_
+#endif  // PROJECT_INCLUDE_UTILS_H_

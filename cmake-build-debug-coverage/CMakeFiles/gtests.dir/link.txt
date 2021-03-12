@@ -1,0 +1,1 @@
+/usr/bin/c++  --coverage -g   CMakeFiles/gtests.dir/gtests/gtests.cpp.o  -o gtests  libutils.a /usr/lib/x86_64-linux-gnu/libgtest.a -lpthread 

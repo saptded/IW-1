@@ -1,7 +1,4 @@
-#include <stdio.h>
-
 #include "start_program.h"
-#include "utils.h"
 
 int start_program() {
     Tasks *tasks = create_array_of_tasks();
@@ -13,7 +10,6 @@ int start_program() {
         if (push_back_task(tasks)) {
             return -1;
         }
-
     }
 
     if (sort(tasks->buffer, tasks->tasks_amount) == -1) {

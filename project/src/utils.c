@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <memory.h>
+
 #include "utils.h"
 
 int print_buffer(const Tasks *tasks) {
@@ -25,14 +26,14 @@ int date_comparator(const size_t *lhs, const size_t *rhs) {
         return -1;
     }
 
-    for (size_t i = 2; i >= 0; --i) {
+    for (int i = 2; i >= 0; --i) {
+        if (!i) {
+            break;
+        }
         if (lhs[i] > rhs[i]) {
             return LHS_IS_LARGER;
         } else if (lhs[i] < rhs[i]) {
             return RHS_IS_LARGER;
-        }
-        if (!i) {
-            break;
         }
     }
 
@@ -88,7 +89,7 @@ int sort(Task *task, const size_t size) {
             i++;
             j--;
         }
-    };
+    }
 
     if (j > 0) {
         sort(task, j + 1);
@@ -114,7 +115,8 @@ int parse_date(const char *date_str, size_t *date_arr) {
         i++;
     }
     date_arr[0] = (size_t) strtol(buf, &end, BASE);
-    if (*end != '\0' || date_arr[0] <= 0 || date_arr[0] > MAX_DAYS_IN_MONTH) {
+    if (*end != '\0' || date_arr[0] > MAX_DAYS_IN_MONTH) {
+        free(buf);
         return -1;
     }
 
@@ -126,7 +128,8 @@ int parse_date(const char *date_str, size_t *date_arr) {
         i++;
     }
     date_arr[1] = (size_t) strtol(buf, &end, BASE);
-    if (*end != '\0' || date_arr[1] <= 0 || date_arr[1] > MAX_MONTHS_IN_YEAR) {
+    if (*end != '\0' || date_arr[1] > MAX_MONTHS_IN_YEAR) {
+        free(buf);
         return -1;
     }
 
@@ -138,7 +141,8 @@ int parse_date(const char *date_str, size_t *date_arr) {
         i++;
     }
     date_arr[2] = (size_t) strtol(buf, &end, BASE);
-    if (*end != '\0' || date_arr[2] <= 0 || date_arr[2] > CURRENT_YEAR) {
+    if (*end != '\0' || date_arr[2] > CURRENT_YEAR) {
+        free(buf);
         return -1;
     }
 
@@ -150,7 +154,7 @@ int will_continue_creating_tasks() {
     printf("Do you want to create a task(y or n): ");
 
     char ans[BUFFER_FOR_ANSWER];
-    int res = scanf("%3s", ans);
+    int res = scanf("%2s", ans);
     if (res != 1) {
         return -1;
     }
@@ -198,13 +202,16 @@ int read_priority(Task *task) {
         return -1;
     }
     if (scanf("%10s", buf) != 1) {
+        free(buf);
         return -1;
     }
     task->priority = (size_t) strtol(buf, &end, BASE);
     if (*end != '\0') {
+        free(buf);
         return -1;
     }
 
+    free(buf);
     return 0;
 }
 
@@ -216,12 +223,15 @@ int read_date(Task *task) {
 
     char *date_buf = (char *) calloc(COMMON_BUFFER, sizeof(char));
     if (date_buf == NULL) {
+        free(date_buf);
         return -1;
     }
     if (scanf("%10s", date_buf) != 1) {
+        free(date_buf);
         return -1;
     }
     if (parse_date(date_buf, task->date) == -1) {
+        free(date_buf);
         return -1;
     }
 

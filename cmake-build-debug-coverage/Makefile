@@ -157,17 +157,44 @@ IW_1/fast:
 .PHONY : IW_1/fast
 
 #=============================================================================
-# Target rules for targets named test
+# Target rules for targets named gtests
 
 # Build rule for target.
-test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
-.PHONY : test
+gtests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtests
+.PHONY : gtests
 
 # fast build rule for target.
-test/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-.PHONY : test/fast
+gtests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gtests.dir/build.make CMakeFiles/gtests.dir/build
+.PHONY : gtests/fast
+
+gtests/gtests.o: gtests/gtests.cpp.o
+
+.PHONY : gtests/gtests.o
+
+# target to build an object file
+gtests/gtests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gtests.dir/build.make CMakeFiles/gtests.dir/gtests/gtests.cpp.o
+.PHONY : gtests/gtests.cpp.o
+
+gtests/gtests.i: gtests/gtests.cpp.i
+
+.PHONY : gtests/gtests.i
+
+# target to preprocess a source file
+gtests/gtests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gtests.dir/build.make CMakeFiles/gtests.dir/gtests/gtests.cpp.i
+.PHONY : gtests/gtests.cpp.i
+
+gtests/gtests.s: gtests/gtests.cpp.s
+
+.PHONY : gtests/gtests.s
+
+# target to generate assembly for a file
+gtests/gtests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/gtests.dir/build.make CMakeFiles/gtests.dir/gtests/gtests.cpp.s
+.PHONY : gtests/gtests.cpp.s
 
 project/src/main.o: project/src/main.c.o
 
@@ -223,33 +250,6 @@ project/src/start_program.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/utils.dir/build.make CMakeFiles/utils.dir/project/src/start_program.c.s
 .PHONY : project/src/start_program.c.s
 
-project/src/test.o: project/src/test.c.o
-
-.PHONY : project/src/test.o
-
-# target to build an object file
-project/src/test.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/project/src/test.c.o
-.PHONY : project/src/test.c.o
-
-project/src/test.i: project/src/test.c.i
-
-.PHONY : project/src/test.i
-
-# target to preprocess a source file
-project/src/test.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/project/src/test.c.i
-.PHONY : project/src/test.c.i
-
-project/src/test.s: project/src/test.c.s
-
-.PHONY : project/src/test.s
-
-# target to generate assembly for a file
-project/src/test.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/project/src/test.c.s
-.PHONY : project/src/test.c.s
-
 project/src/utils.o: project/src/utils.c.o
 
 .PHONY : project/src/utils.o
@@ -286,17 +286,17 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... IW_1"
-	@echo "... test"
+	@echo "... gtests"
 	@echo "... utils"
+	@echo "... gtests/gtests.o"
+	@echo "... gtests/gtests.i"
+	@echo "... gtests/gtests.s"
 	@echo "... project/src/main.o"
 	@echo "... project/src/main.i"
 	@echo "... project/src/main.s"
 	@echo "... project/src/start_program.o"
 	@echo "... project/src/start_program.i"
 	@echo "... project/src/start_program.s"
-	@echo "... project/src/test.o"
-	@echo "... project/src/test.i"
-	@echo "... project/src/test.s"
 	@echo "... project/src/utils.o"
 	@echo "... project/src/utils.i"
 	@echo "... project/src/utils.s"
