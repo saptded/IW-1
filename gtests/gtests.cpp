@@ -6,8 +6,6 @@
 #define ERR -1
 
 TEST(data_compatator, data_comparator0) {
-    int err = -1;
-
     size_t *a = nullptr;
     size_t *b = nullptr;
 
@@ -24,8 +22,6 @@ TEST(data_compatator, data_comparator1) {
 }
 
 TEST(data_compatator, data_comparator2) {
-    int rhs_is_larger = RHS_IS_LARGER;
-
     size_t a0[3] = {10, 10, 2010};
     size_t b0[3] = {10, 10, 2011};
     size_t a1[3] = {10, 9, 2010};
