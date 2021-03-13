@@ -1,0 +1,23 @@
+name: CI
+on: [ push ]
+
+jobs:
+  build:
+
+    name: ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install gtest
+        run: sudo apt-get install libgtest-dev -y && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && cd lib && sudo cp *.a /usr/lib
+
+      - name: build
+        run: mkdir build && cd build && cmake .. && make
+
+      - name: linters
+        run: ./linters/run.sh cmake-build-debug/IW_1 && ./linters/run.sh cmake-build-debug/gtests
+
+      - name: tests
+        run: ./cmake-build-debug/gtests
