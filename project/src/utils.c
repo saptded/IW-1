@@ -27,13 +27,13 @@ int date_comparator(const size_t *lhs, const size_t *rhs) {
     }
 
     for (int i = 2; i >= 0; --i) {
-        if (!i) {
-            break;
-        }
         if (lhs[i] > rhs[i]) {
             return LHS_IS_LARGER;
         } else if (lhs[i] < rhs[i]) {
             return RHS_IS_LARGER;
+        }
+        if (!i) {
+            break;
         }
     }
 
@@ -102,7 +102,7 @@ int sort(Task *task, const size_t size) {
 }
 
 int parse_date(const char *date_str, size_t *date_arr) {
-    if (date_arr == NULL) {
+    if (date_str == NULL || date_arr == NULL) {
         return -1;
     }
 

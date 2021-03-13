@@ -1,6 +1,10 @@
 #ifndef PROJECT_INCLUDE_UTILS_H_
 #define PROJECT_INCLUDE_UTILS_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <memory.h>
@@ -22,6 +26,7 @@
 #define RHS_IS_LARGER 1
 #define LHS_IS_LARGER 2
 #define EQUAL 3
+
 
 typedef struct Task {
     size_t number;
@@ -54,5 +59,9 @@ int insert_task(Tasks *task);
 int grow_tasks(Tasks *tasks);
 
 int sort(Task *task, size_t size);
+
+#ifdef __cplusplus
+};
+#endif
 
 #endif  // PROJECT_INCLUDE_UTILS_H_
