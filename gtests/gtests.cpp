@@ -116,6 +116,8 @@ TEST(grow_buffer, grow_buffer) {
     grow_tasks(tasks);
 
     EXPECT_EQ(START_SIZE_OF_TASKS_BUFFER * 2, tasks->cells_amount);
+    free(tasks->buffer);
+    free(tasks);
 }
 
 
