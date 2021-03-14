@@ -108,6 +108,16 @@ TEST(sort, sort) {
     EXPECT_TRUE(0 == std::memcmp(tasks0, tasks1, sizeof(tasks0)));
 }
 
+int grow_tasks(Tasks *tasks);
+
+TEST(grow_buffer, grow_buffer) {
+    Tasks *tasks = create_array_of_tasks();
+
+    grow_tasks(tasks);
+
+    EXPECT_EQ(START_SIZE_OF_TASKS_BUFFER * 2, tasks->cells_amount);
+}
+
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

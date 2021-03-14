@@ -249,7 +249,8 @@ int read_description(Task *task) {
     if (task->description == NULL) {
         return -1;
     }
-    if (scanf("%100s", task->description) != 1) {
+    if (scanf("%99s", task->description) != 1) {
+        free(task->description);
         return -1;
     }
 
@@ -269,7 +270,7 @@ Tasks *create_array_of_tasks() {
     }
 
     tasks->tasks_amount = 0;
-    tasks->cells_amount = 1;
+    tasks->cells_amount = 2;
 
     return tasks;
 }
@@ -290,6 +291,7 @@ int grow_tasks(Tasks *tasks) {
         return -1;
     }
 
+    free(tasks->buffer);
     tasks->buffer = tmp_buffer;
 
     return 0;
@@ -310,5 +312,19 @@ int push_back_task(Tasks *tasks) {
         return -1;
     }
 
+    return 0;
+}
+
+int buffer_delete(Tasks *tasks) {
+    if (tasks == NULL) {
+        return -1;
+    }
+
+    for (size_t i = 0; i < tasks->tasks_amount; ++i) {
+        free(tasks->buffer[i].description);
+    }
+
+    free(tasks->buffer);
+    free(tasks);
     return 0;
 }

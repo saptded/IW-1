@@ -11,9 +11,9 @@ extern "C" {
 
 #include "utils.h"
 
-#define BUFFER_FOR_DATE_SIZE 4
+#define BUFFER_FOR_DATE_SIZE 5
 #define BUFFER_FOR_ANSWER 3
-#define COMMON_BUFFER 10
+#define COMMON_BUFFER 11
 #define SYMBOLS_FOR_DAYS 2
 #define SYMBOLS_FOR_MONTHS 2
 #define SYMBOLS_OF_YEARS 4
@@ -22,11 +22,10 @@ extern "C" {
 #define MAX_MONTHS_IN_YEAR 12
 #define CURRENT_YEAR 2021
 #define SIZE_OF_DESCRIPTION 100
-#define START_SIZE_OF_TASKS_BUFFER 4
+#define START_SIZE_OF_TASKS_BUFFER 2
 #define RHS_IS_LARGER 1
 #define LHS_IS_LARGER 2
 #define EQUAL 3
-
 
 typedef struct Task {
     size_t number;
@@ -59,6 +58,7 @@ int insert_task(Tasks *task);
 int grow_tasks(Tasks *tasks);
 
 int sort(Task *task, size_t size);
+int buffer_delete(Tasks *tasks);
 
 #ifdef __cplusplus
 };

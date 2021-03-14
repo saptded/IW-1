@@ -8,15 +8,22 @@ int start_program() {
 
     while (will_continue_creating_tasks()) {
         if (push_back_task(tasks)) {
+            buffer_delete(tasks);
             return -1;
         }
     }
 
     if (sort(tasks->buffer, tasks->tasks_amount) == -1) {
+        buffer_delete(tasks);
         return -1;
     }
 
     if (print_buffer(tasks) == -1) {
+        buffer_delete(tasks);
+        return -1;
+    }
+
+    if (buffer_delete(tasks) == -1) {
         return -1;
     }
 

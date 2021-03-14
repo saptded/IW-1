@@ -17,7 +17,7 @@ jobs:
         run: mkdir build && cd build && cmake .. && make
 
       - name: linters
-        run: ./linters/run.sh build/IW_1 && ./linters/run.sh build/gtests
+        run: ./linters/run.sh build/IW_1 build/gtests
 
       - name: cppcheck
         run: cppcheck -q --enable=all --inconclusive --platform=unix64 --suppress=missingIncludeSystem ./project ./gtests
