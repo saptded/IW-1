@@ -24,10 +24,7 @@ jobs:
         run: cppcheck -q --enable=all --inconclusive --platform=unix64 --suppress=missingIncludeSystem ./project ./gtests
 
       - name: valgrind
-        run: valgrind --tool=memcheck --leak-check=full -s ./build/gtest
+        run: valgrind --tool=memcheck --leak-check=full -s ./build/gtests
 
       - name: tests
         run: ./build/gtests
-
-      - name: tests_coverage
-        run: cd build && make make code_covr_lconv
