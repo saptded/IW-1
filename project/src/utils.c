@@ -166,28 +166,32 @@ int will_continue_creating_tasks() {
     return 0;
 }
 
-int insert_task(Tasks *tasks) {
-    if (tasks == NULL) {
-        return -1;
+Task *create_task(const size_t *numb_of_task) {
+    if (numb_of_task == NULL) {
+        return NULL;
     }
 
-    Task task;
-    task.number = tasks->tasks_amount + 1;
-
-    if (read_priority(&task) == -1) {
-        return -1;
-    }
-    if (read_date(&task) == -1) {
-        return -1;
-    }
-    if (read_description(&task) == -1) {
-        return -1;
+    Task *task = (Task *) calloc(1, sizeof(Task));
+    if (task == NULL) {
+        return NULL;
     }
 
-    *(tasks->buffer + tasks->tasks_amount) = task;
-    tasks->tasks_amount++;
+    task->number = *numb_of_task + 1;
 
-    return 0;
+    if (read_priority(task) == -1) {
+        free(task);
+        return NULL;
+    }
+    if (read_date(task) == -1) {
+        free(task);
+        return NULL;
+    }
+    if (read_description(task) == -1) {
+        free(task);
+        return NULL;
+    }
+
+    return task;
 }
 
 int read_priority(Task *task) {
@@ -297,8 +301,8 @@ int grow_tasks(Tasks *tasks) {
     return 0;
 }
 
-int push_back_task(Tasks *tasks) {
-    if (tasks == NULL) {
+int push_back_task(Tasks *tasks, Task *task) {
+    if (tasks == NULL || task == NULL) {
         return -1;
     }
 
@@ -308,9 +312,9 @@ int push_back_task(Tasks *tasks) {
         }
     }
 
-    if (insert_task(tasks)) {
-        return -1;
-    }
+    tasks->buffer[tasks->tasks_amount] = *task;
+    free(task);
+    tasks->tasks_amount++;
 
     return 0;
 }

@@ -7,7 +7,13 @@ int start_program() {
     }
 
     while (will_continue_creating_tasks()) {
-        if (push_back_task(tasks)) {
+        Task *task = create_task(&(tasks->tasks_amount));
+        if (task == NULL) {
+            buffer_delete(tasks);
+            return -1;
+        }
+
+        if (push_back_task(tasks, task)) {
             buffer_delete(tasks);
             return -1;
         }

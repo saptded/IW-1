@@ -91,8 +91,6 @@ TEST(tasks_comparator, tasks_comparator0) {
     EXPECT_EQ(RHS_IS_LARGER, res2);
 }
 
-int sort(Task *task, size_t size);
-
 TEST(sort, sort) {
     Task task1 = {1, 1, {10, 10, 2020}, nullptr};
     Task task2 = {2, 1, {1, 10, 2020}, nullptr};
@@ -108,18 +106,37 @@ TEST(sort, sort) {
     EXPECT_TRUE(0 == std::memcmp(tasks0, tasks1, sizeof(tasks0)));
 }
 
-int grow_tasks(Tasks *tasks);
-
 TEST(grow_buffer, grow_buffer) {
     Tasks *tasks = create_array_of_tasks();
 
-    grow_tasks(tasks);
+    EXPECT_EQ(0, grow_tasks(tasks));
 
     EXPECT_EQ(START_SIZE_OF_TASKS_BUFFER * 2, tasks->cells_amount);
     free(tasks->buffer);
     free(tasks);
 }
 
+TEST(push_back_task, push_back_task) {
+    Tasks *tasks = create_array_of_tasks();
+    size_t a[3] = {1, 2, 3};
+
+    Task *task = (Task *) calloc(1, sizeof(Task));
+    task->number = 1;
+    task->priority = 1;
+    for (size_t i = 0; i < 3; ++i) {
+        task->date[i] = i + 1;
+    }
+
+    EXPECT_EQ(0, push_back_task(tasks, task));
+
+    EXPECT_EQ(1, tasks->tasks_amount);
+    EXPECT_EQ(1, tasks->buffer->number);
+    EXPECT_EQ(1, tasks->buffer->priority);
+    EXPECT_TRUE(0 == std::memcmp(a, tasks->buffer->date, sizeof(a)));
+    EXPECT_EQ(nullptr, tasks->buffer->description);
+
+    free(tasks);
+}
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

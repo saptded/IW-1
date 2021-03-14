@@ -40,21 +40,21 @@ typedef struct ArrayOfTasks {
     size_t cells_amount;
 } Tasks;
 
+Task *create_task();
 Tasks *create_array_of_tasks();
+
 int print_buffer(const Tasks *tasks);
 
 int will_continue_creating_tasks();
-
 int date_comparator(const size_t *lhs, const size_t *rhs);
 int parse_date(const char *date_str, size_t *date_arr);
-int tasks_comparator(const Task *lhs, const Task *rhs);
 
+int tasks_comparator(const Task *lhs, const Task *rhs);
 int read_priority(Task *task);
 int read_date(Task *task);
-int read_description(Task *task);
 
-int push_back_task(Tasks *tasks);
-int insert_task(Tasks *task);
+int read_description(Task *task);
+int push_back_task(Tasks *tasks, Task *task);
 int grow_tasks(Tasks *tasks);
 
 int sort(Task *task, size_t size);
