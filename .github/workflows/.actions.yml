@@ -15,7 +15,7 @@ jobs:
 
 
       - name: build
-        run: mkdir build && cd build && cmake .. && make
+        run: mkdir build && cd build && cmake .. && make && lcov -t "IW_1" -o coverage.txt -c -d . && cp coverage.txt ../
 
       - name: linters
         run: ./linters/run.sh build/IW_1 build/gtests
@@ -28,3 +28,10 @@ jobs:
 
       - name: tests
         run: ./build/gtests
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage.txt
+          flags: unittests

@@ -3,6 +3,9 @@ project(IW_1 C CXX)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  --coverage")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
+
 
 set(SOURCES project/src/utils.c
         project/src/start_program.c)
